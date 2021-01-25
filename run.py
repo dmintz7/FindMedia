@@ -70,6 +70,7 @@ def scanShowDB(sectionNumber=0):
 									for media in video:
 										for part in media:
 											filename = urllib.parse.unquote(part.attrib['file'])
+											filename = filename.replace(remote_path_remote, remote_path_local)
 											if addThisItem(filename): mediasFromDB.append(filename)
 									iEpisode += 1
 								except:
