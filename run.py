@@ -73,7 +73,8 @@ def scanShowDB(sectionNumber=0):
 											if addThisItem(filename): mediasFromDB.append(filename)
 									iEpisode += 1
 								except:
-										logger.info(video.attrib)
+										# logger.info(video.attrib)
+										pass
 							iCEpisode += MediaChuncks
 							if len(videos) == 0:
 								break
