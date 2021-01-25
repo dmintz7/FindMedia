@@ -70,7 +70,6 @@ def scanShowDB(sectionNumber=0):
 									for media in video:
 										for part in media:
 											filename = urllib.parse.unquote(part.attrib['file'])
-											filename = filename.replace(remote_path_remote, remote_path_local)
 											if addThisItem(filename): mediasFromDB.append(filename)
 									iEpisode += 1
 								except:
@@ -123,13 +122,14 @@ def getFiles(filePath):
 			bScanStatusCount += 1
 			logger.info("Scanning filepath #%s: %s" % (bScanStatusCount, Path))
 			try:
-				for root, subdirs, files in os.walk(Path):
+				for root, subdirs, files in os.walk(Path.replace(remote_path_remote, remote_path_local)):
 					for file in files:
 						filename = os.path.join(root, file)
 						if addThisItem(filename):
 							file_count+=1
+							filename = filename.replace(remote_path_remote, remote_path_local)
 							if DEBUGMODE: logger.info('appending file: %s' %  filename)
-							mediasFromFileSystem.append(filename)
+							mediasFromFileSystem.append(filename.replace(remote_path_local, remote_path_remote))
 			except Exception as e:
 				logger.error('Exception happened in FM scanning filesystem: %s' % e)
 				if DEBUGMODE: raise
