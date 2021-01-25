@@ -128,9 +128,9 @@ def getFiles(filePath):
 						filename = os.path.join(root, file)
 						if addThisItem(filename):
 							file_count+=1
-							filename = filename.replace(config.remote_path_remote, config.remote_path_local)
+							filename = filename.replace(config.remote_path_local, config.remote_path_remote)
 							if DEBUGMODE: logger.info('appending file: %s' %  filename)
-							mediasFromFileSystem.append(filename.replace(config.remote_path_local, config.remote_path_remote))
+							mediasFromFileSystem.append(filename)
 			except Exception as e:
 				logger.error('Exception happened in FM scanning filesystem: %s' % e)
 				if DEBUGMODE: raise
