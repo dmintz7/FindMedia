@@ -26,7 +26,7 @@ MediaChuncks = 40
 
 Extras = ['behindthescenes', 'deleted', 'featurette', 'interview', 'scene', 'short', 'trailer']
 ExtrasDirs = ['behind the scenes', 'deleted scenes', 'featurettes', 'interviews', 'scenes', 'shorts', 'trailers']
-Specials = ['season 00', 'season 0', 'specials'] 
+Specials = ['season 00', 'season 0', 'specials']
 KEYS = ['IGNORE_HIDDEN', 'IGNORED_DIRS', 'VALID_EXTENSIONS', 'IGNORE_SPECIALS']
 excludeElements = 'Actor,Collection,Country,Director,Genre,Label,Mood,Producer,Role,Similar,Writer'
 excludeFields = 'summary,tagline'
@@ -190,7 +190,7 @@ def scanMedias(sectionNumber, sectionLocations, sectionType):
 		MissingFromDB = findMissingFromDB(mediasFromFileSystem, mediasFromDB)
 
 		if len(MissingFromDB) > 0: refresh_plex_section(sectionNumber)
-			
+
 		if DEBUGMODE: logger.info("Files Missing from the File System for Section Number: %s: %s" % (sectionNumber, MissingFromFS))
 		if DEBUGMODE: logger.info("Files Missing from Plex for Section Number: %s: %s" % (sectionNumber, MissingFromDB))
 		return (MissingFromFS, MissingFromDB)
@@ -259,11 +259,11 @@ def get_xml(url):
 		break
 
 	return xml
-	
+
 def sendMessage(response, attachments=None):
 	try:
 		sc = SlackClient(config.slack_api)
-		result = sc.api_call("chat.postMessage", channel=config.slack_channel, text=response, as_user=False, attachments=json.dumps(attachments))
+		result = sc.api_call("chat.postMessage", channel=config.slack_channel, text=response, attachments=json.dumps(attachments))
 		if str(result['ok']) == 'True':
 			logger.debug("Succesfully Sent Message - %s" % result)
 			return "success"
@@ -313,7 +313,7 @@ if __name__ == "__main__":
 			review = "%s Files Missing from FS, %s Files Missing from Plex" % (len(missing_files), len(missing_db))
 		else:
 			logger.info("No Files Missing")
-		
+
 	except Exception as ex:
 		logger.error('Fatal error happened in scanSection: %s' % ex)
 		if DEBUGMODE: raise
