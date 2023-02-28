@@ -1,10 +1,8 @@
 import config
-import json
 import logging
 import os
 import unidecode
 import sys
-import time
 from plexapi.server import PlexServer
 from logging.handlers import RotatingFileHandler
 
@@ -55,13 +53,13 @@ def add_this_item(filename):
             parts = split_all(filename)
             for part in parts:
                 if config.DEFAULT_PREFS['IGNORE_EXTRAS']:
-                    if part.lower() in onfig.ExtrasDirs:
+                    if part.lower() in config.ExtrasDirs:
                         return False
                     for extra in config.Extras:
                         if extra in part.lower():
                             return False
                 if config.DEFAULT_PREFS['IGNORE_SPECIALS']:
-                    for special in Specials:
+                    for special in config.Specials:
                         if special == part.lower():
                             return False
                 if config.DEFAULT_PREFS['IGNORE_HIDDEN']:
@@ -204,8 +202,8 @@ if __name__ == "__main__":
 
         review = "%s Files Missing from FS, %s Files Missing from Plex" % (len(missing_files), len(missing_db))
         if len(message) > 0:
-            logger.info("Files Missing from the File System: %s" % missing_files)
-            logger.info("Files Missing from Plex: %s" % missing_db)
+            logger.error("Files Missing from the File System: %s" % missing_files)
+            logger.error("Files Missing from Plex: %s" % missing_db)
             review = "%s Files Missing from FS, %s Files Missing from Plex" % (len(missing_files), len(missing_db))
         else:
             logger.info("No Files Missing")
