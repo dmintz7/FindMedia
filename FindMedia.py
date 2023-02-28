@@ -191,11 +191,11 @@ if __name__ == "__main__":
         if len(MissingFromFS + MissingFromDB) > config.error_threshold:
             message = message + "Over Threshold of %s Files Missing. Check Server" % config.error_threshold
         else:
-            if not len(missing_files):
+            if len(missing_files):
                 message = message + "***Files Missing From File System***\n"
                 for file in missing_files:
                     message = message + file + '\n'
-            if not len(missing_db):
+            if len(missing_db):
                 message = message + "***Files Missing From Plex***\n"
                 for file in missing_db:
                     message = message + file + '\n'
