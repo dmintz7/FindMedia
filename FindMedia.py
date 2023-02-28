@@ -191,20 +191,22 @@ if __name__ == "__main__":
         if len(MissingFromFS + MissingFromDB) > config.error_threshold:
             message = message + "Over Threshold of %s Files Missing. Check Server" % config.error_threshold
         else:
-            if len(missing_files) > 0:
+            if not len(missing_files):
                 message = message + "***Files Missing From File System***\n"
                 for file in missing_files:
                     message = message + file + '\n'
-            if len(missing_db) > 0:
+            if not len(missing_db):
                 message = message + "***Files Missing From Plex***\n"
                 for file in missing_db:
                     message = message + file + '\n'
 
-        review = "%s Files Missing from FS, %s Files Missing from Plex" % (len(missing_files), len(missing_db))
-        if len(message) > 0:
-            logger.error("Files Missing from the File System: %s" % missing_files)
-            logger.error("Files Missing from Plex: %s" % missing_db)
+        if not len(message):
             review = "%s Files Missing from FS, %s Files Missing from Plex" % (len(missing_files), len(missing_db))
+            logger.error("%s Files Missing from FS, %s Files Missing from Plex" % (len(missing_files), len(missing_db)))
+            if len(missing_files):
+                logger.error("Files Missing from the File System: %s" % missing_files)
+            if len(missing_db):
+                logger.error("Files Missing from Plex: %s" % missing_db)
         else:
             logger.info("No Files Missing")
 
