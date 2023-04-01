@@ -172,9 +172,6 @@ if __name__ == "__main__":
         missing_db = []
         MissingFromFS = []
         MissingFromDB = []
-        sectionNumber = '1'
-        sectionLocations = '/mnt/Movies'
-        sectionType = 'movie'
         plex_sections = plex_server.library.sections()
         for section in plex_sections:
             sectionNumber = section.key
@@ -200,7 +197,7 @@ if __name__ == "__main__":
                 for file in missing_db:
                     message = message + file + '\n'
 
-        if not len(message):
+        if len(message):
             review = "%s Files Missing from FS, %s Files Missing from Plex" % (len(missing_files), len(missing_db))
             logger.error("%s Files Missing from FS, %s Files Missing from Plex" % (len(missing_files), len(missing_db)))
             if len(missing_files):
